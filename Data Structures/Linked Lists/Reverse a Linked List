@@ -1,0 +1,44 @@
+#
+# Complete the 'reverse' function below.
+#
+# The function is expected to return an INTEGER_SINGLY_LINKED_LIST.
+# The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+#
+
+#
+# For your reference:
+#
+# SinglyLinkedListNode:
+#     int data
+#     SinglyLinkedListNode next
+#
+#
+
+def reverse(llist):
+    # Trivial case where llist is empty or singular element
+    if not llist or not llist.next:
+        return llist
+    
+    '''
+    We require 3 pointers:
+    prev_node: to store the previous node
+    current_node: to store the current node
+    next_node: to store the next node so we can still access
+    it after we have reset the pointer for the current node
+    to the previous node
+    '''
+    prev_node = None
+    current_node = llist 
+    next_node = llist.next
+    
+    # First save a reference to the next node and then 
+    # set the pointer for the current node to the previous node
+    while next_node:
+        next_node = current_node.next
+        current_node.next = prev_node
+        prev_node = current_node 
+        current_node = next_node
+        
+    # The new head is the original last node
+    return prev_node
+
