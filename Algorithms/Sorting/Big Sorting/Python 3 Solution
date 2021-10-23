@@ -1,0 +1,47 @@
+'''
+Link to original problem:
+https://www.hackerrank.com/challenges/big-sorting/problem
+'''
+
+'''
+Note:
+Using Python kind of trivializes this problem since we are not constrained
+in terms of integer size.  What is presented here is a good application of 
+the built in sort() function in Python 3.
+'''
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'bigSorting' function below.
+#
+# The function is expected to return a STRING_ARRAY.
+# The function accepts STRING_ARRAY unsorted as parameter.
+#
+
+def bigSorting(unsorted):
+    return sorted(sorted(unsorted), key=len)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    unsorted = []
+
+    for _ in range(n):
+        unsorted_item = input()
+        unsorted.append(unsorted_item)
+
+    result = bigSorting(unsorted)
+
+    fptr.write('\n'.join(result))
+    fptr.write('\n')
+
+    fptr.close()
