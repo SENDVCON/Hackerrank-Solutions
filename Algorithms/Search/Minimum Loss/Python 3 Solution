@@ -1,0 +1,61 @@
+'''
+Link to original problem:
+https://www.hackerrank.com/challenges/minimum-loss/problem
+'''
+
+'''
+Intuition:
+The one question we have to ask is, whether or not checking adjacent pairs in 
+our sorted array is sufficient.  
+
+Consider a sorted array
+[x+y+z,x+y,x, . . .]
+And suppose our mininum loss is indeed y+z.  This would imply that the value 
+x+y comes before x+y+z, but that would also imply that we could have the loss
+x < x+y since x must come after x+y+z and x+y must come before x+y+z, a contradition.
+Thus, it is sufficient to only check adjacent pairs.
+'''
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'minimumLoss' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts LONG_INTEGER_ARRAY price as parameter.
+#
+
+def minimumLoss(price):
+    sorted_price = price.copy()
+    sorted_price.sort(reverse=True)
+    min_loss = sorted_price[0]
+    
+    for i in range(len(sorted_price)-1):
+        purchase_price = sorted_price[i]
+        sale_price = sorted_price[i+1]
+        loss = purchase_price - sale_price
+        if loss < min_loss:
+            if price.index(sale_price) > price.index(purchase_price):
+                min_loss = loss
+            
+    return min_loss
+    # Write your code here
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    price = list(map(int, input().rstrip().split()))
+
+    result = minimumLoss(price)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
